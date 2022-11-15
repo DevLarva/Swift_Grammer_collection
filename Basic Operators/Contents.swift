@@ -115,3 +115,37 @@ for name in names[...2] {
 
 // MARK: -논리 연산자
 
+//NOT 연산자
+let allowedEntry = false
+if !allowedEntry {
+    print("ACCESS DENIED")
+}
+// Prints "ACCESS DENIED"
+
+//AND 연산자
+let enteredDoorCode = true
+let passedRetinaScan = false
+if enteredDoorCode && passedRetinaScan {
+    print("Welcome!")
+} else {
+    print("ACCESS DENIED")
+}
+// Prints "ACCESS DENIED"
+
+//OR 연산자
+let hasDoorKey = false
+let knowsOverridePassword = true
+if hasDoorKey || knowsOverridePassword {
+    print("Welcome!")
+} else {
+    print("ACCESS DENIED")
+}
+// Prints "Welcome!"
+
+//논리 연산자 결합
+if enteredDoorCode && passedRetinaScan || hasDoorKey || knowsOverridePassword {
+    print("Welcome!")
+} else {
+    print("ACCESS DENIED")
+}
+// Prints "Welcome!"
