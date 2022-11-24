@@ -41,3 +41,46 @@ reversedNames = names.sorted(by: { $0 > $1 } )
 //위의 종결 표현식을 쓰는 훨씬 더 짧은 방법이 있습니다. 스위프트의 문자열 유형은 문자열 유형의 두 매개 변수를 갖는 메서드로 greater-than 연산자(>)의 문자열 특정 구현을 정의하고 부울 유형의 값을 반환한다.
 reversedNames = names.sorted(by: >)
 
+
+
+// MARK: - 후행 폐쇄
+//클로저 표현식을 함수의 마지막 인수로 함수에 전달해야 하고 클로저 표현식이 긴 경우 대신 후행 클로저로 작성하는 것이 유용할 수 있습니다.
+
+
+func someFunctionThatTakesAClosure(closure: () -> Void) {
+    // function body goes here
+}
+
+someFunctionThatTakesAClosure(closure: {
+    // closure's body goes here
+})
+
+someFunctionThatTakesAClosure() {
+    // trailing closure's body goes here
+}
+
+
+reversedNames = names.sorted { $0 > $1 }
+//후행 클로저는 클로저가 충분히 길어 한 줄에 인라인으로 작성할 수 없을 때 가장 유용합니다. 예를 들어 Swift의 Array유형에는 map(_:)단일 인수로 클로저 표현식을 사용하는 메서드가 있습니다.
+
+
+//map(_:)후행 클로저와 함께 메서드를 사용하여 값 배열을 Int값 배열로 변환하는 방법 은 다음과 같습니다
+
+let digitNames = [
+    0: "Zero", 1: "One", 2: "Two",   3: "Three", 4: "Four",
+    5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine"
+]
+let numbers = [16, 58, 510]
+
+
+//이제 클로저 식을 후행 클로저로 배열의 메서드에 전달하여 배열을 사용하여 값 numbers의 배열을 만들 수 있습니다.
+let strings = numbers.map { (number) -> String in
+    var number = number
+    var output = ""
+    repeat {
+        output = digitNames[number % 10]! + output
+        number /= 10
+    } while number > 0
+    return output
+}
+   
