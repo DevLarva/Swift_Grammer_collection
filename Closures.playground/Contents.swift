@@ -84,3 +84,39 @@ let strings = numbers.map { (number) -> String in
     return output
 }
    
+//함수가 여러 클로저를 사용하는 경우 첫 번째 후행 클로저에 대한 인수 레이블을 생략하고 나머지 후행 클로저에 레이블을 지정합니다. 예를 들어 아래 함수는 사진 갤러리의 사진을 로드합니다.
+func loadPicture(from server: Server, completion: (Picture) -> Void, onFailure: () -> Void) {
+    if let picture = download("photo.jpg", from: server) {
+        completion(picture)
+    } else {
+        onFailure()
+    }
+}
+
+//사진을 로드하기 위해 이 함수를 호출할 때 두 개의 클로저를 제공합니다. 첫 번째 클로저는 성공적인 다운로드 후 사진을 표시하는 완료 핸들러입니다. 두 번째 클로저는 사용자에게 오류를 표시하는 오류 처리기입니다.
+loadPicture(from: someServer) { picture in
+    someView.currentPicture = picture
+} onFailure: {
+    print("Couldn't download the next picture.")
+}
+
+//이 예제에서 loadPicture(from:completion:onFailure:)함수는 네트워크 작업을 백그라운드로 디스패치하고 네트워크 작업이 완료되면 두 완료 핸들러 중 하나를 호출합니다.
+
+
+
+// MARK: - Capturing Values
+
+//다음은 makeIncrementer라는 함수의 예입니다.여기에는 incrementer라는 중첩 함수가 포함되어 있습니다.중첩된 incrementer() 함수는 주변 컨텍스트에서 runningTotal 및 amount라는 두 값을 캡처합니다.
+
+
+func makeIncrementer(forIncrement amount: Int) -> () -> Int {
+    var runningTotal = 0
+    func incrementer() -> Int {
+        runningTotal += amount
+        return runningTotal
+    }
+    return incrementer
+}
+
+
+//이 함수는 반환될 증분기의 현재 누계를 저장하기 위해 makeIncrementer(forIncrement:)라는 정수 변수를 정의합니다. runningTotal이 변수는 0값으로 초기화됩니다.
