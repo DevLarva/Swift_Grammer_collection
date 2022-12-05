@@ -149,3 +149,22 @@ if enteredDoorCode && passedRetinaScan || hasDoorKey || knowsOverridePassword {
     print("ACCESS DENIED")
 }
 // Prints "Welcome!"
+
+
+// MARK: - 타입 추론과 타입 어노테이션
+var day = 7 // 선언과 초기화 동시에
+
+var year : Int //선언
+year = 1999 //초기화
+//타입 어노테이션이란 변수나 상수를 선언 할때 그 타입을 명시적으로 선언해줌으로써 어떤 타입의 값이 저장될 것인지를 컴파일러에게 직접 알려주는것
+
+
+// 주석 방법
+//한줄 주석 = //
+
+
+/* 지금처럼
+ 할거면
+ 여러줄
+ 주석
+ 해야합니다. */
